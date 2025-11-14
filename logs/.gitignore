@@ -1,0 +1,17 @@
+# Ignorar el archivo de datos de reservas
+/data/reservas.json
+
+# Ignorar las dependencias de Node.js
+/node_modules/
+
+# Ignorar archivos del sistema operativo macOS
+.DS_Store
+
+# Ignorar archivos de configuración de entorno (usualmente contienen información sensible)
+.env
+
+# Ignorar archivos de logs de errores
+/error.log
+
+# Ignorar el directorio de dependencias de Composer (si usas PHP con Composer)
+/vendor/
