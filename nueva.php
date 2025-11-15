@@ -78,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="relative">
                         <input type="text" name="fecha" id="fecha" class="form-control date-input" placeholder="dd/mm/yyyy" required pattern="\d{2}/\d{2}/\d{4}">
                         <button type="button" class="calendar-toggle absolute right-3 top-1/2 transform -translate-y-1/2 text-neutral-400 hover:text-primary transition-colors" id="calendar-toggle">
-                            <iconify-icon icon="mdi:calendar"></iconify-icon>
+                            <iconify-icon icon="mdi:calendar-outline" class="calendar-icon"></iconify-icon>
                         </button>
                     </div>
                 </div>
