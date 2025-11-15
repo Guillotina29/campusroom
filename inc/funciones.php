@@ -54,6 +54,57 @@ function formatear_iso8601($fecha, $hora) {
     return $dt ? $dt->format('c') : null;
 }
 
+function generar_timestamp() {
+    $dt = new DateTime('now', new DateTimeZone('America/Santo_Domingo'));
+    return $dt->format('c');
+}
+
+function formatear_fecha_hora($fecha, $hora) {
+    $dt = DateTime::createFromFormat('d/m/Y H:i:s', "$fecha $hora", new DateTimeZone('America/Santo_Domingo'));
+    return $dt ? $dt->format('d/m/Y H:i:s') : null;
+}
+
+function validar_fecha_hora_segundos($fecha, $hora) {
+    $dt = DateTime::createFromFormat('d/m/Y H:i:s', "$fecha $hora");
+    return $dt && $dt->format('d/m/Y H:i:s') === "$fecha $hora";
+}
+
+function validar_fecha_hora_futura($fecha, $hora) {
+    $dt = DateTime::createFromFormat('d/m/Y H:i:s', "$fecha $hora", new DateTimeZone('America/Santo_Domingo'));
+    return ($dt && $dt >= new DateTime('now', new DateTimeZone('America/Santo_Domingo')));
+}
+
+function validar_horario_laboral_segundos($hora, $duracion) {
+    $ini = DateTime::createFromFormat('H:i:s', HORARIO_INICIO . ':00');
+    $fin = DateTime::createFromFormat('H:i:s', HORARIO_FIN . ':00');
+    $start = DateTime::createFromFormat('H:i:s', $hora);
+    $end = clone $start;
+    $end->add(new DateInterval("PT{$duracion}M"));
+    return $start >= $ini && $end <= $fin;
+}
+
+function no_solapa_segundos($fecha, $hora, $duracion, $sala) {
+    $reservas = leer_reservas();
+    $inicio = DateTime::createFromFormat('d/m/Y H:i:s', "$fecha $hora", new DateTimeZone('America/Santo_Domingo'));
+    $fin = clone $inicio;
+    $fin->add(new DateInterval("PT{$duracion}M"));
+    foreach ($reservas as $r) {
+        if ($r['sala'] !== $sala) continue;
+        $r_inicio = isset($r['created_at']) ?
+            new DateTime($r['created_at']) :
+            DateTime::createFromFormat('d/m/Y H:i', $r['fecha'].' '.$r['hora'], new DateTimeZone('America/Santo_Domingo'));
+        $r_fin = clone $r_inicio;
+        $r_fin->add(new DateInterval("PT{$r['duracion']}M"));
+        if ($r_inicio && $r_fin && $inicio < $r_fin && $fin > $r_inicio) return false;
+    }
+    return true;
+}
+
+function formatear_timestamp_legible($timestamp) {
+    $dt = new DateTime($timestamp, new DateTimeZone('America/Santo_Domingo'));
+    return $dt->format('d/m/Y H:i:s');
+}
+
 function redirigir($url_relativa) {
     header('Location: ' . BASE_URL . $url_relativa);
     exit();

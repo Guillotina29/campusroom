@@ -34,6 +34,7 @@ $reservas = leer_reservas();
                                 <th>Fecha</th>
                                 <th>Hora</th>
                                 <th>Duración</th>
+                                <th>Timestamps</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -48,6 +49,24 @@ $reservas = leer_reservas();
                                 <td><?php echo htmlspecialchars($reserva['fecha']); ?></td>
                                 <td><?php echo htmlspecialchars($reserva['hora']); ?></td>
                                 <td><?php echo htmlspecialchars($reserva['duracion']); ?> min</td>
+                                <td class="text-sm text-neutral-600">
+                                    <?php if (isset($reserva['created_at'])): ?>
+                                        <div class="timestamp-info">
+                                            <div class="created-at">
+                                                <iconify-icon icon="mdi:calendar-plus" class="text-xs"></iconify-icon>
+                                                <?php echo htmlspecialchars(formatear_timestamp_legible($reserva['created_at'])); ?>
+                                            </div>
+                                            <?php if (isset($reserva['updated_at']) && $reserva['updated_at'] !== $reserva['created_at']): ?>
+                                                <div class="updated-at text-xs text-neutral-500">
+                                                    <iconify-icon icon="mdi:calendar-edit" class="text-xs"></iconify-icon>
+                                                    Actualizado: <?php echo htmlspecialchars(formatear_timestamp_legible($reserva['updated_at'])); ?>
+                                                </div>
+                                            <?php endif; ?>
+                                        </div>
+                                    <?php else: ?>
+                                        <span class="text-neutral-400">Sin timestamp</span>
+                                    <?php endif; ?>
+                                </td>
                             </tr>
                             <?php endforeach; ?>
                         </tbody>
