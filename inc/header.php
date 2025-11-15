@@ -12,6 +12,7 @@ if (!isset($menu)) $menu = 'principal';
     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <script src="<?= BASE_URL ?>/assets/animations.js" defer></script>
+    <script src="<?= BASE_URL ?>/assets/hamburger.js" defer></script>
 </head>
 
 <body>
@@ -19,11 +20,20 @@ if (!isset($menu)) $menu = 'principal';
    
         <nav class="mb-4 text-center">
             <?php if ($menu !== 'principal'): ?>
-                <button class="btn-glass" onclick="location.href='<?= BASE_URL ?>/index.php'">Volver al menú principal</button>
+                <button class="btn btn-secondary" onclick="location.href='<?= BASE_URL ?>/index.php'">
+                    <iconify-icon icon="mdi:home"></iconify-icon>
+                    Volver al menú principal
+                </button>
             <?php endif; ?>
             <?php if ($menu === 'reserva' || $menu === 'tabla'): ?>
-                <button class="btn-glass" onclick="location.href='<?= BASE_URL ?>/nueva.php'">Nueva reservación</button>
-                <button class="btn-glass" onclick="location.href='<?= BASE_URL ?>/reservas.php'">Ver reservas</button>
+                <button class="btn btn-primary" onclick="location.href='<?= BASE_URL ?>/nueva.php'">
+                    <iconify-icon icon="mdi:plus-box"></iconify-icon>
+                    Nueva reservación
+                </button>
+                <button class="btn btn-accent" onclick="location.href='<?= BASE_URL ?>/reservas.php'">
+                    <iconify-icon icon="mdi:table-eye"></iconify-icon>
+                    Ver reservas
+                </button>
             <?php endif; ?>
         </nav>
     </header>

@@ -1,47 +1,76 @@
 <?php
+$page_title = 'Historial de Reservas - CampusRoom';
 $menu = "tabla";
-require_once 'inc/header.php';
+require_once 'inc/layout.php';
 require_once 'inc/funciones.php';
 
 $reservas = leer_reservas();
-
-$salas_colores = [
-    'A' => '#faf7d5',
-    'B' => '#d8f8ff',
-    'C' => '#f3d7e7',
-];
 ?>
-<div class="col-12 col-md-10 col-lg-8 mx-auto">
-    <h2 class="mb-4 text-center" style="font-weight: 600; color: #193654;">Historial de Reservas</h2>
-    <div class="table-responsive card-glass">
-        <table class="table table-striped text-center">
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Sala</th>
-                    <th>Fecha</th>
-                    <th>Hora</th>
-                    <th>Duración (min)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($reservas as $reserva): ?>
-                <tr style="background: <?= isset($salas_colores[$reserva['sala']]) ? $salas_colores[$reserva['sala']] : '#fff' ?>;">
-                    <td><?= htmlspecialchars($reserva['nombre']) ?></td>
-                    <td><span class="sala-label sala-<?= $reserva['sala'] ?>">
-                        <?= htmlspecialchars(SALAS[$reserva['sala']]) ?>
-                    </span></td>
-                    <td><?= htmlspecialchars($reserva['fecha']) ?></td>
-                    <td><?= htmlspecialchars($reserva['hora']) ?></td>
-                    <td><?= htmlspecialchars($reserva['duracion']) ?></td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
-    <div class="text-center mt-4">
-        <a href="exportar_csv.php" class="btn-glass">Exportar CSV</a>
-        <a href="exportar_pdf.php" class="btn-glass">Exportar PDF</a>
+
+<div class="max-w-6xl mx-auto">
+    <div class="card fade-in">
+        <div class="card-header">
+            <h1 class="text-2xl font-semibold text-dark">Historial de Reservas</h1>
+        </div>
+
+        <div class="card-body">
+            <?php if (empty($reservas)): ?>
+                <div class="text-center py-12">
+                    <iconify-icon icon="mdi:calendar-blank-outline" class="text-6xl text-neutral-400 mb-4"></iconify-icon>
+                    <h3 class="text-xl font-medium text-neutral-600 mb-2">No hay reservas registradas</h3>
+                    <p class="text-neutral-500 mb-6">Sé el primero en crear una reservación</p>
+                    <a href="nueva.php" class="btn btn-primary">
+                        <iconify-icon icon="mdi:plus"></iconify-icon>
+                        Crear primera reservación
+                    </a>
+                </div>
+            <?php else: ?>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Sala</th>
+                                <th>Fecha</th>
+                                <th>Hora</th>
+                                <th>Duración</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($reservas as $index => $reserva): ?>
+                            <tr class="slide-up" style="animation-delay: <?php echo $index * 0.1; ?>s">
+                                <td class="font-medium"><?php echo htmlspecialchars($reserva['nombre']); ?></td>
+                                <td>
+                                    <span class="badge badge-primary">
+                                        <?php echo htmlspecialchars(SALAS[$reserva['sala']] ?? $reserva['sala']); ?>
+                                    </span>
+                                </td>
+                                <td><?php echo htmlspecialchars($reserva['fecha']); ?></td>
+                                <td><?php echo htmlspecialchars($reserva['hora']); ?></td>
+                                <td><?php echo htmlspecialchars($reserva['duracion']); ?> min</td>
+                            </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+                    <a href="exportar_csv.php" class="btn btn-success">
+                        <iconify-icon icon="mdi:file-excel"></iconify-icon>
+                        Exportar Excel
+                    </a>
+                    <a href="exportar_pdf.php" class="btn btn-danger">
+                        <iconify-icon icon="mdi:file-pdf"></iconify-icon>
+                        Exportar PDF
+                    </a>
+                    <a href="nueva.php" class="btn btn-primary">
+                        <iconify-icon icon="mdi:plus"></iconify-icon>
+                        Nueva reservación
+                    </a>
+                </div>
+            <?php endif; ?>
+        </div>
     </div>
 </div>
-<?php include 'inc/footer.php'; ?>
+
+<?php require_once 'inc/footer.php'; ?>

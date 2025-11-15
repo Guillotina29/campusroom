@@ -23,7 +23,10 @@
                     <textarea name="mensaje" rows="5" required></textarea>
                 </label>
 
-                <button type="submit" class="btn-glass">Enviar mensaje</button>
+                <button type="submit" class="btn btn-primary">
+                    <iconify-icon icon="mdi:send"></iconify-icon>
+                    Enviar mensaje
+                </button>
             </form>
         </section>
     </div>

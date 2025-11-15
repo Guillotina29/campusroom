@@ -1,6 +1,7 @@
 <?php
+$page_title = 'Nueva Reservación - CampusRoom';
 $menu = "reserva";
-require_once 'inc/header.php';
+require_once 'inc/layout.php';
 require_once 'inc/funciones.php';
 
 $nombre = $sala = $fecha = $hora = $duracion = '';
@@ -27,35 +28,73 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
-<div class="col-12 col-md-8 col-lg-6 mx-auto card-glass">
-    <h2 class="mb-4 text-center" style="font-weight: 600; color: #193654;">Crear nueva reservación</h2>
-    <?php if (!empty($errores)): ?>
-        <div class="flash-message flash-danger"><ul><li><?= implode('</li><li>', $errores); ?></li></ul></div>
-    <?php endif; ?>
-    <form method="POST" autocomplete="off">
-        <label for="nombre" class="form-label">Nombre:</label>
-        <input type="text" name="nombre" class="form-control input-glass" required>
-        
-        <label for="sala" class="form-label">Sala:</label>
-        <select name="sala" class="form-select input-glass" required>
-            <?php foreach (SALAS as $codigo => $nombreSala): ?>
-                <option value="<?= $codigo ?>"><?= $nombreSala ?></option>
-            <?php endforeach; ?>
-        </select>
-        
-        <label for="fecha" class="form-label">Fecha (DD/MM/AAAA):</label>
-        <input type="text" name="fecha" class="form-control input-glass" placeholder="dd/mm/yyyy" required pattern="\d{2}/\d{2}/\d{4}">
-        
-        <label for="hora" class="form-label">Hora (HH:MM 24h):</label>
-        <input type="text" name="hora" class="form-control input-glass" placeholder="hh:mm" required pattern="\d{2}:\d{2}">
-        
-        <label for="duracion" class="form-label">Duración (minutos):</label>
-        <select name="duracion" class="form-select input-glass" required>
-            <?php foreach (DURACIONES as $d): ?>
-                <option value="<?= $d ?>"><?= $d ?> minutos</option>
-            <?php endforeach; ?>
-        </select>
-        <button type="submit" class="btn-glass">Crear reservación</button>
-    </form>
+
+<div class="max-w-2xl mx-auto">
+    <div class="card fade-in">
+        <div class="card-header">
+            <h1 class="text-2xl font-semibold text-dark">Crear nueva reservación</h1>
+        </div>
+
+        <div class="card-body">
+            <?php if (!empty($errores)): ?>
+                <div class="alert alert-danger">
+                    <ul class="list-disc list-inside">
+                        <?php foreach ($errores as $error): ?>
+                            <li><?php echo htmlspecialchars($error); ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            <?php endif; ?>
+
+            <form method="POST" autocomplete="off" class="space-y-6">
+                <div class="form-group">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Ingresa tu nombre completo" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="sala" class="form-label">Sala</label>
+                    <select name="sala" id="sala" class="form-select" required>
+                        <option value="">Selecciona una sala</option>
+                        <?php foreach (SALAS as $codigo => $nombreSala): ?>
+                            <option value="<?php echo $codigo; ?>"><?php echo htmlspecialchars($nombreSala); ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="fecha" class="form-label">Fecha (DD/MM/AAAA)</label>
+                    <input type="text" name="fecha" id="fecha" class="form-control" placeholder="dd/mm/yyyy" required pattern="\d{2}/\d{2}/\d{4}">
+                </div>
+
+                <div class="form-group">
+                    <label for="hora" class="form-label">Hora (HH:MM 24h)</label>
+                    <input type="text" name="hora" id="hora" class="form-control" placeholder="hh:mm" required pattern="\d{2}:\d{2}">
+                </div>
+
+                <div class="form-group">
+                    <label for="duracion" class="form-label">Duración (minutos)</label>
+                    <select name="duracion" id="duracion" class="form-select" required>
+                        <option value="">Selecciona duración</option>
+                        <?php foreach (DURACIONES as $d): ?>
+                            <option value="<?php echo $d; ?>"><?php echo $d; ?> minutos</option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
+                <div class="flex gap-4">
+                    <button type="submit" class="btn btn-success btn-lg">
+                        <iconify-icon icon="mdi:content-save"></iconify-icon>
+                        Crear reservación
+                    </button>
+                    <a href="index.php" class="btn btn-secondary btn-lg">
+                        <iconify-icon icon="mdi:arrow-left"></iconify-icon>
+                        Cancelar
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
-<?php include 'inc/footer.php'; ?>
+
+<?php require_once 'inc/footer.php'; ?>

@@ -1,25 +1,41 @@
-/* Neo-Industrial Minimal Design System - CampusRoom 2025-2027 */
+/* NeoTaiwan Modern Tech Design System - CampusRoom 2025-2027 */
 
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap');
 
 /* CSS Custom Properties */
 :root {
-  /* Colors */
-  --primary: #2563eb;
-  --primary-hover: #1d4ed8;
-  --primary-light: #dbeafe;
-  --neutral: #f8fafc;
-  --neutral-50: #f8fafc;
-  --neutral-100: #f1f5f9;
-  --neutral-200: #e2e8f0;
-  --neutral-300: #cbd5e1;
-  --neutral-400: #94a3b8;
-  --neutral-500: #64748b;
-  --neutral-600: #475569;
-  --neutral-700: #334155;
-  --neutral-800: #1e293b;
-  --neutral-900: #0f172a;
-  --dark: #0f172a;
+  /* NeoTaiwan Modern Tech Color Palette */
+  --primary: #4C7DF0;
+  --primary-hover: #3A6BD8;
+  --primary-light: rgba(76, 125, 240, 0.1);
+  --secondary: #F6F7FB;
+  --secondary-hover: #E8ECF4;
+  --secondary-light: rgba(246, 247, 251, 0.1);
+  --accent: #00C2A8;
+  --accent-hover: #00A08C;
+  --accent-light: rgba(0, 194, 168, 0.1);
+  --dark-accent: #2F4F4F;
+  --dark-accent-hover: #556B2F;
+  --dark-accent-light: rgba(47, 79, 79, 0.1);
+  --cream: #F5F5DC;
+  --cream-hover: #FFF8DC;
+  --cream-light: rgba(245, 245, 220, 0.1);
+
+  /* Neutral Colors */
+  --neutral: #F6F7FB;
+  --neutral-50: #F6F7FB;
+  --neutral-100: #E8ECF4;
+  --neutral-200: #D1D5DB;
+  --neutral-300: #9CA3AF;
+  --neutral-400: #6B7280;
+  --neutral-500: #4B5563;
+  --neutral-600: #535353;
+  --neutral-700: #374151;
+  --neutral-800: #1F2937;
+  --neutral-900: #111827;
+  --dark: #1A1A1A;
+
+  /* Legacy Colors */
   --success: #22c55e;
   --success-hover: #16a34a;
   --success-light: #dcfce7;
@@ -173,84 +189,227 @@ body {
   box-shadow: var(--shadow-soft);
 }
 
-/* Button System */
+/* Enhanced Button System with Detailed Styling */
 .btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
+  padding: 0.875rem 1.75rem;
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1.25rem;
   text-decoration: none;
-  border-radius: var(--radius);
-  border: 1px solid transparent;
+  border-radius: var(--radius-lg);
+  border: 2px solid transparent;
   cursor: pointer;
-  transition: var(--transition);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.btn:hover::before {
+  left: 100%;
 }
 
 .btn:focus {
-  outline: 2px solid var(--primary);
-  outline-offset: 2px;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(76, 125, 240, 0.3);
 }
 
 .btn:disabled {
-  opacity: 0.5;
+  opacity: 0.6;
   cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
+.btn:disabled::before {
+  display: none;
+}
+
+/* Primary Button - Taiwan Tech Blue */
 .btn-primary {
-  background-color: var(--primary);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
   color: white;
   border-color: var(--primary);
+  box-shadow: 0 4px 15px rgba(76, 125, 240, 0.3);
 }
 
 .btn-primary:hover:not(:disabled) {
-  background-color: var(--primary-hover);
+  background: linear-gradient(135deg, var(--primary-hover) 0%, var(--secondary) 100%);
   border-color: var(--primary-hover);
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-medium);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 25px rgba(76, 125, 240, 0.4);
+  filter: brightness(1.1);
 }
 
+.btn-primary:active:not(:disabled) {
+  transform: translateY(-1px) scale(1.01);
+  box-shadow: 0 4px 15px rgba(76, 125, 240, 0.3);
+}
+
+/* Secondary Button - Futuristic White-Gray */
 .btn-secondary {
-  background-color: white;
+  background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-hover) 100%);
   color: var(--dark);
-  border-color: var(--neutral-300);
-  box-shadow: var(--shadow-soft);
+  border-color: var(--secondary);
+  box-shadow: 0 4px 15px rgba(246, 247, 251, 0.3);
 }
 
 .btn-secondary:hover:not(:disabled) {
-  background-color: var(--neutral-50);
-  border-color: var(--neutral-400);
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-medium);
+  background: linear-gradient(135deg, var(--secondary-hover) 0%, var(--primary) 100%);
+  border-color: var(--secondary-hover);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 25px rgba(246, 247, 251, 0.4);
+  filter: brightness(1.1);
 }
 
+.btn-secondary:active:not(:disabled) {
+  transform: translateY(-1px) scale(1.01);
+  box-shadow: 0 4px 15px rgba(246, 247, 251, 0.3);
+}
+
+/* Accent Button - Asian Mint Green */
+.btn-accent {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+  color: white;
+  border-color: var(--accent);
+  box-shadow: 0 4px 15px rgba(0, 194, 168, 0.3);
+}
+
+.btn-accent:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--accent-hover) 0%, var(--dark-accent) 100%);
+  border-color: var(--accent-hover);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 25px rgba(0, 194, 168, 0.4);
+  filter: brightness(1.1);
+}
+
+.btn-accent:active:not(:disabled) {
+  transform: translateY(-1px) scale(1.01);
+  box-shadow: 0 4px 15px rgba(0, 194, 168, 0.3);
+}
+
+/* Cream Button - Warm Beige */
+.btn-cream {
+  background: linear-gradient(135deg, var(--cream) 0%, var(--cream-hover) 100%);
+  color: var(--dark);
+  border-color: var(--cream);
+  box-shadow: 0 4px 15px rgba(253, 240, 213, 0.3);
+}
+
+.btn-cream:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--cream-hover) 0%, #f0e6d2 100%);
+  border-color: var(--cream-hover);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 25px rgba(253, 240, 213, 0.4);
+}
+
+.btn-cream:active:not(:disabled) {
+  transform: translateY(-1px) scale(1.01);
+  box-shadow: 0 4px 15px rgba(253, 240, 213, 0.3);
+}
+
+/* Success Button */
 .btn-success {
-  background-color: var(--success);
+  background: linear-gradient(135deg, var(--success) 0%, var(--success-hover) 100%);
   color: white;
   border-color: var(--success);
+  box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3);
 }
 
 .btn-success:hover:not(:disabled) {
-  background-color: var(--success-hover);
+  background: linear-gradient(135deg, var(--success-hover) 0%, #16a34a 100%);
   border-color: var(--success-hover);
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-medium);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 25px rgba(34, 197, 94, 0.4);
 }
 
+.btn-success:active:not(:disabled) {
+  transform: translateY(-1px) scale(1.01);
+  box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3);
+}
+
+/* Danger Button */
 .btn-danger {
-  background-color: var(--danger);
+  background: linear-gradient(135deg, var(--danger) 0%, var(--danger-hover) 100%);
   color: white;
   border-color: var(--danger);
+  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
 }
 
 .btn-danger:hover:not(:disabled) {
-  background-color: var(--danger-hover);
+  background: linear-gradient(135deg, var(--danger-hover) 0%, #dc2626 100%);
   border-color: var(--danger-hover);
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-medium);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
+}
+
+.btn-danger:active:not(:disabled) {
+  transform: translateY(-1px) scale(1.01);
+  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+}
+
+/* Button Sizes */
+.btn-sm {
+  padding: 0.625rem 1.25rem;
+  font-size: 0.8125rem;
+  border-radius: var(--radius);
+}
+
+.btn-lg {
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  border-radius: var(--radius-xl);
+}
+
+/* Button with Icons */
+.btn .iconify-icon {
+  transition: transform 0.3s ease;
+}
+
+.btn:hover .iconify-icon {
+  transform: scale(1.1);
+}
+
+/* Loading State */
+.btn.loading {
+  position: relative;
+  color: transparent;
+}
+
+.btn.loading::after {
+  content: '';
+  position: absolute;
+  width: 1rem;
+  height: 1rem;
+  top: 50%;
+  left: 50%;
+  margin-left: -0.5rem;
+  margin-top: -0.5rem;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 /* Card System */
@@ -508,4 +667,113 @@ body {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Hamburger Menu Styles */
+.hamburger-menu {
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 30px;
+  height: 30px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1001;
+}
+
+.hamburger-menu span {
+  width: 100%;
+  height: 3px;
+  background: var(--dark);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+.hamburger-menu.active span:nth-child(1) {
+  transform: rotate(45deg) translate(7px, 7px);
+}
+
+.hamburger-menu.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-menu.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -7px);
+}
+
+.nav-menu {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 300px;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-xl);
+  transition: left 0.3s ease;
+  z-index: 1000;
+  padding: 80px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.nav-menu.active {
+  left: 0;
+}
+
+.nav-menu a {
+  color: var(--dark);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-menu a:hover {
+  background: var(--neutral-100);
+  color: var(--primary);
+}
+
+.nav-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 999;
+}
+
+.nav-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.menu-open {
+  overflow: hidden;
+}
+
+/* Hamburger Menu for all devices */
+.hamburger-menu {
+  display: flex;
+}
+
+.nav-menu {
+  display: flex;
+}
+
+.nav-overlay {
+  display: block;
 }

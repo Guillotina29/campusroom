@@ -15,11 +15,20 @@ $page_title = $page_title ?? 'CampusRoom';
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/styles.css">
     <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.7/dist/iconify-icon.min.js"></script>
+    <script src="<?php echo BASE_URL; ?>/assets/hamburger.js" defer></script>
 </head>
 <body class="font-manrope bg-neutral text-dark min-h-screen flex flex-col">
     <header class="bg-white shadow-soft border-b border-gray-200">
         <div class="container mx-auto px-6 py-4">
-            <nav class="flex justify-center space-x-4">
+            <!-- Hamburger Menu for all devices -->
+            <button class="hamburger-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex justify-center space-x-4">
                 <?php if ($menu !== 'principal'): ?>
                     <a href="<?php echo BASE_URL; ?>/index.php" class="btn btn-secondary">
                         <iconify-icon icon="mdi:home"></iconify-icon>
@@ -31,12 +40,35 @@ $page_title = $page_title ?? 'CampusRoom';
                         <iconify-icon icon="mdi:plus"></iconify-icon>
                         Nueva reservación
                     </a>
-                    <a href="<?php echo BASE_URL; ?>/reservas.php" class="btn btn-primary">
+                    <a href="<?php echo BASE_URL; ?>/reservas.php" class="btn btn-accent">
                         <iconify-icon icon="mdi:table"></iconify-icon>
                         Ver reservas
                     </a>
                 <?php endif; ?>
             </nav>
+
+            <!-- Mobile Navigation Menu -->
+            <nav class="nav-menu">
+                <?php if ($menu !== 'principal'): ?>
+                    <a href="<?php echo BASE_URL; ?>/index.php">
+                        <iconify-icon icon="mdi:home"></iconify-icon>
+                        Volver al menú principal
+                    </a>
+                <?php endif; ?>
+                <?php if ($menu === 'reserva' || $menu === 'tabla'): ?>
+                    <a href="<?php echo BASE_URL; ?>/nueva.php">
+                        <iconify-icon icon="mdi:plus"></iconify-icon>
+                        Nueva reservación
+                    </a>
+                    <a href="<?php echo BASE_URL; ?>/reservas.php">
+                        <iconify-icon icon="mdi:table"></iconify-icon>
+                        Ver reservas
+                    </a>
+                <?php endif; ?>
+            </nav>
+
+            <!-- Overlay for mobile menu -->
+            <div class="nav-overlay"></div>
         </div>
     </header>
 
