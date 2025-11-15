@@ -67,6 +67,10 @@ $reservas = leer_reservas();
                         <iconify-icon icon="mdi:plus"></iconify-icon>
                         Nueva reservación
                     </a>
+                    <a href="index.php" class="btn btn-secondary">
+                        <iconify-icon icon="mdi:arrow-left"></iconify-icon>
+                        Cancelar
+                    </a>
                 </div>
             <?php endif; ?>
         </div>
