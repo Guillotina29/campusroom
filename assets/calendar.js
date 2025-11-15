@@ -251,6 +251,16 @@ class InteractiveCalendar {
             this.options.onDateSelect(this.selectedDate);
         }
 
+        // Hide calendar after selection
+        const container = this.calendarElement.closest('.calendar-container');
+        if (container) {
+            container.classList.add('hidden');
+            const toggle = document.getElementById('calendar-toggle');
+            if (toggle) {
+                toggle.querySelector('iconify-icon').setAttribute('icon', 'mdi:calendar');
+            }
+        }
+
         // Announce selection to screen readers
         this.announceToScreenReader(`Fecha seleccionada: ${this.formatDateForScreenReader(this.selectedDate)}`);
     }
