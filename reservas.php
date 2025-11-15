@@ -34,7 +34,6 @@ $reservas = leer_reservas();
                                 <th>Fecha</th>
                                 <th>Hora</th>
                                 <th>Duración</th>
-                                <th>Timestamps</th>
                             </tr>
                         </thead>
                         <tbody>
