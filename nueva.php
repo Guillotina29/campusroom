@@ -114,7 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </div>
 
 <!-- Interactive Calendar Container -->
-<div id="calendar-container" class="calendar-container hidden mt-4" data-calendar data-input="fecha"></div>
+<div id="calendar-container" class="calendar-container hidden" data-calendar data-input="fecha"></div>
 
 <!-- Include JavaScript files -->
 <script src="assets/formatting.js"></script>
